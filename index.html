@@ -117,8 +117,8 @@
                 <h2 class="text-3xl font-bold tracking-tight text-[#111418] dark:text-white">Welcome back</h2>
                 <div class="mt-2 text-sm text-[#637588] dark:text-[#9da8b9]">
                     Don't have an account?
-                    <a href="#" onclick="document.querySelector('input[value=\'Sign Up\']').click();"
-                        class="font-medium text-primary hover:underline">Start a 14-day free trial</a>
+                    <a href="#" onclick="window.switchToSignup()" class="font-medium text-primary hover:underline">Start
+                        a 14-day free trial</a>
                 </div>
             </div>
 
@@ -134,7 +134,7 @@
                         </div>
                     </label>
                     <label class="flex-1 cursor-pointer">
-                        <input class="hidden peer" name="auth-toggle" type="radio" value="Sign Up" />
+                        <input id="signup-radio" class="hidden peer" name="auth-toggle" type="radio" value="Sign Up" />
                         <div
                             class="py-2.5 text-center text-sm font-medium text-gray-500 rounded-lg peer-checked:bg-white dark:peer-checked:bg-[#282f39] peer-checked:text-[#111418] dark:peer-checked:text-white peer-checked:shadow-sm transition-all">
                             Sign Up
@@ -244,6 +244,17 @@
                     submitText.innerText = e.target.value === 'Login' ? 'Log In' : 'Sign Up';
                 });
             });
+        }
+
+        window.switchToSignup = () => {
+            const signupRadio = document.querySelector('input[value="Sign Up"]'); // Use value again just to be safe, or ID.
+            if (signupRadio) {
+                signupRadio.click();
+                // Force dispatch/update if click fails for hidden
+                signupRadio.checked = true;
+                const event = new Event('change');
+                signupRadio.dispatchEvent(event);
+            }
         }
     </script>
 </body>
