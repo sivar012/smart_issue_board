@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Project Details - IssueTracker</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-dark": "#1c2430",
+                        "border-dark": "#282f39",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col font-display">
+    <!-- Top Navigation -->
+    <header
+        class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-background-dark px-6 py-3">
+        <div class="flex items-center gap-4 text-white">
+            <div class="flex items-center justify-center size-8 rounded-lg bg-primary/20 text-primary">
+                <span class="material-symbols-outlined text-[24px]">bug_report</span>
+            </div>
+            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">IssueTracker</h2>
+            <span id="user" class="text-xs text-gray-400 ml-2"></span>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-gray-400 text-sm font-medium leading-normal hover:text-white transition-colors"
+                href="dashboard.html">Dashboard</a>
+            <a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors"
+                href="projects.html">Projects</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button onclick="window.logout()"
+                class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign Out</button>
+            <button class="text-gray-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border border-border-dark"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD6H_k9guB5YFPduaOFsdkxuDm4njOQ6pr2Tseb9SoSB3f-waUbmzVPpbPsJtRUjvMY0xjxtGkybNPCvNrJh5CtOxioKxRTc4_TRz6F66OSgUb1UkndN3lRT18Oe3iPHIoxV30Hn46kIkiIPWqfITek-R1gUOrgB56bB30Vt1WW_ywhVUziGPEBUiXPaXZhwZ1yXb6Loj7ph6O2im4JgDVMF0NgNS9O1yIPS7mV05c0aT5ihnXRYXsf0LPnTT-fA1rSp8MuWLaGqcCj");'>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex justify-center py-6 md:py-10 px-4 md:px-8 lg:px-12 pb-24">
+        <div class="w-full max-w-[1200px] flex flex-col gap-8">
+            <!-- Header -->
+            <div class="flex flex-col gap-4">
+                <a href="projects.html"
+                    class="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors w-fit">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Back to Projects
+                </a>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h1 id="project-title"
+                            class="text-3xl md:text-4xl font-black leading-tight tracking-tight text-white mb-2">Loading
+                            Project...</h1>
+                        <p id="project-desc" class="text-gray-400 text-sm max-w-2xl">...</p>
+                    </div>
+                    <button onclick="window.createProjectIssue()"
+                        class="flex items-center justify-center gap-2 h-10 px-5 bg-primary hover:bg-blue-600 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-primary/20 whitespace-nowrap">
+                        <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                        <span>Create Issue</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Issues List -->
+            <div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-border-dark bg-background-dark/50">
+                                <th
+                                    class="px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider w-[100px]">
+                                    ID</th>
+                                <th class="px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">Title
+                                </th>
+                                <th
+                                    class="px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider w-[100px]">
+                                    Priority</th>
+                                <th
+                                    class="px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider w-[140px]">
+                                    Status</th>
+                                <th
+                                    class="px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider w-[180px]">
+                                    Assignee</th>
+                                <th
+                                    class="px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider text-right w-[140px]">
+                                    Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="project-issues" class="divide-y divide-border-dark">
+                            <!-- Issues will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-[#101822] border-t border-[#282f39] flex items-center justify-around px-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]">
+        <a href="dashboard.html"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-[24px]">dashboard</span>
+            <span class="text-[10px] font-medium">Dashboard</span>
+        </a>
+        <a href="projects.html" class="flex flex-col items-center gap-1 text-primary">
+            <span class="material-symbols-outlined text-[24px]">folder</span>
+            <span class="text-[10px] font-medium">Projects</span>
+        </a>
+        <a href="#" onclick="window.createProjectIssue(); return false;"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <div
+                class="size-10 bg-primary rounded-full flex items-center justify-center -mt-6 border-4 border-[#101822] text-white shadow-lg">
+                <span class="material-symbols-outlined text-[24px]">add</span>
+            </div>
+            <span class="text-[10px] font-medium">Issue</span>
+        </a>
+    </nav>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/project-details.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+{
+    "name": "issue-tracker",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "node generate-config.js",
+        "start": "node generate-config.js && npx serve .",
+        "dev": "node generate-config.js && npx serve ."
+    }
+}

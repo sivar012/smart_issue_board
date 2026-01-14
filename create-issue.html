@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Create New Issue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom select arrow based on the provided component style */
+        .select-arrow {
+            --select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(157,168,185)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e');
+        }
+    </style>
+</head>
+
+<body
+    class="flex flex-col min-h-screen bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white overflow-x-hidden select-arrow">
+    <!-- Top Navigation -->
+    <header
+        class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#282f39] bg-[#111418] px-4 md:px-10 py-3">
+        <div class="flex items-center gap-4 md:gap-8">
+            <div class="flex items-center gap-4 text-white">
+                <div class="size-8 text-primary">
+                    <span class="material-symbols-outlined text-[32px]">bug_report</span>
+                </div>
+                <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block">IssueTracker
+                </h2>
+            </div>
+            <label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+                <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                    <div
+                        class="text-[#9da8b9] flex border-none bg-[#282f39] items-center justify-center pl-4 rounded-l-lg border-r-0">
+                        <span class="material-symbols-outlined text-[20px]">search</span>
+                    </div>
+                    <input
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#282f39] focus:border-none h-full placeholder:text-[#9da8b9] px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal"
+                        placeholder="Search issues..." value="" />
+                </div>
+            </label>
+        </div>
+        <div class="flex flex-1 justify-end gap-4 md:gap-8">
+            <div class="hidden md:flex items-center gap-6 lg:gap-9">
+                <a class="text-[#9da8b9] hover:text-white text-sm font-medium leading-normal transition-colors"
+                    href="dashboard.html">Dashboard</a>
+                <a class="text-[#9da8b9] hover:text-white text-sm font-medium leading-normal transition-colors"
+                    href="projects.html">Projects</a>
+            </div>
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 md:size-10 border border-[#282f39]"
+                data-alt="User avatar showing a generic gradient or person"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDlTZI6JDUiuUgZv4glWNdSapeA8qV_VQ65fp7I1jr1biz6nl-CgbVzkhpZxNFIvSH8hJ_kN7uQfXKPQxL6GNBwAddfTlykqgr9XuOcHfbxcMF6EPn6PafZo8jCgMqxBFh4JKJrrbvSt1oL3ErhGWaYtrILEu6YqS1s4reRi0Y2lOzcXs1rmlQfxtenWrrST2IJwTvtStazb3aidVJnoppHAENtbu2-g7yYs-pTpDnX_5aZo038oZdxKcDDQ_tRtub1VY_b38_x0SES");'>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="flex-1 flex justify-center py-5 md:py-10 px-4 md:px-6 lg:px-8 pb-24">
+        <div class="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left Column: Form -->
+            <div class="lg:col-span-8 flex flex-col gap-6">
+                <!-- Page Heading -->
+                <div class="flex flex-col gap-2 pb-4 border-b border-[#282f39]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <a class="flex items-center text-[#9da8b9] hover:text-white text-sm font-medium transition-colors"
+                            href="projects.html" id="back-link">
+                            <span class="material-symbols-outlined text-[18px] mr-1">arrow_back</span>
+                            Back
+                        </a>
+                    </div>
+                    <!-- Context Banner -->
+                    <div id="project-banner"
+                        class="hidden mb-2 p-3 bg-primary/10 border border-primary/20 rounded-lg flex items-center gap-3">
+                        <div class="flex items-center justify-center size-8 rounded-full bg-primary/20 text-primary">
+                            <span class="material-symbols-outlined text-[18px]">folder</span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-primary font-bold uppercase tracking-wider mb-0.5">Project Context
+                            </p>
+                            <p id="project-name-display" class="text-white font-bold text-sm">Loading Project...</p>
+                        </div>
+                    </div>
+
+                    <h1 class="text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Create New
+                        Issue</h1>
+                    <p class="text-[#9da8b9] text-base font-normal leading-normal">Fill in the details below to track a
+                        new bug or feature request.</p>
+                </div>
+                <!-- Form Fields -->
+                <form class="flex flex-col gap-6" onsubmit="event.preventDefault(); window.createIssue();">
+                    <!-- Title -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-white text-base font-medium leading-normal">Title</label>
+                        <input id="title"
+                            class="form-input w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#3b4554] bg-[#1c2027] focus:border-primary h-14 placeholder:text-[#9da8b9] px-[15px] text-base font-normal leading-normal transition-all"
+                            placeholder="e.g., Login button fails on Safari" type="text" />
+                    </div>
+                    <!-- Description -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-white text-base font-medium leading-normal">Description</label>
+                        <textarea id="desc"
+                            class="form-input w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#3b4554] bg-[#1c2027] focus:border-primary min-h-[240px] placeholder:text-[#9da8b9] p-[15px] text-base font-normal leading-normal transition-all"
+                            placeholder="Describe the steps to reproduce, expected behavior, and actual behavior..."></textarea>
+                        <div class="flex justify-between items-center text-xs text-[#9da8b9] px-1">
+                            <span>Markdown supported</span>
+                            <span>Attach files by dragging &amp; dropping</span>
+                        </div>
+                    </div>
+                    <!-- Row: Priority & Status -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white text-base font-medium leading-normal">Priority</label>
+                            <div class="relative">
+                                <select id="priority"
+                                    class="form-select w-full appearance-none rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#3b4554] bg-[#1c2027] focus:border-primary h-14 bg-[image:--select-button-svg] bg-[position:right_1rem_center] bg-no-repeat pr-10 pl-[15px] text-base font-normal leading-normal transition-all">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white text-base font-medium leading-normal">Status</label>
+                            <div class="relative">
+                                <select id="status"
+                                    class="form-select w-full appearance-none rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#3b4554] bg-[#1c2027] focus:border-primary h-14 bg-[image:--select-button-svg] bg-[position:right_1rem_center] bg-no-repeat pr-10 pl-[15px] text-base font-normal leading-normal transition-all">
+                                    <option value="Open">Open</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="In Review">In Review</option>
+                                    <option value="Done">Done</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Assigned To -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-white text-base font-medium leading-normal">Assigned To</label>
+                        <div class="relative flex items-center">
+                            <div class="absolute left-4 text-[#9da8b9] flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-[20px]">person_search</span>
+                            </div>
+                            <input id="assigned"
+                                class="form-input w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#3b4554] bg-[#1c2027] focus:border-primary h-14 placeholder:text-[#9da8b9] pl-12 pr-[15px] text-base font-normal leading-normal transition-all"
+                                placeholder="Search for a team member (e.g. name or email)" type="text" />
+                        </div>
+                    </div>
+                    <!-- Actions -->
+                    <div
+                        class="flex flex-col-reverse sm:flex-row items-center justify-end gap-4 mt-4 pt-6 border-t border-[#282f39]">
+                        <button
+                            class="w-full sm:w-auto h-12 px-6 rounded-lg border border-[#3b4554] bg-transparent text-white font-medium hover:bg-[#282f39] transition-colors focus:ring-2 focus:ring-[#3b4554]">
+                            Cancel
+                        </button>
+                        <button
+                            class="w-full sm:w-auto h-12 px-8 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-[#111418]">
+                            <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                            Create Issue
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- Right Column: Smart Assist Sidebar -->
+            <div class="lg:col-span-4">
+                <div class="sticky top-24 flex flex-col gap-4">
+                    <!-- Sidebar Header -->
+                    <div class="flex items-center gap-2 text-[#9da8b9] mb-2">
+                        <span class="material-symbols-outlined text-[20px]">smart_toy</span>
+                        <h3 class="text-sm font-bold uppercase tracking-wider">Smart Assist</h3>
+                    </div>
+                    <!-- Main Sidebar Card -->
+                    <div class="bg-[#1c2027] border border-[#282f39] rounded-xl overflow-hidden shadow-sm">
+                        <div class="p-4 border-b border-[#282f39] bg-[#232932]">
+                            <h4 class="text-white font-semibold text-base">Possible Duplicates</h4>
+                            <p class="text-xs text-[#9da8b9] mt-1">Based on your title, these existing issues look
+                                similar.</p>
+                        </div>
+                        <div id="similar-issues-list" class="divide-y divide-[#282f39]">
+                            <!-- Dynamic content loading... -->
+                            <div class="p-4 text-center">
+                                <p class="text-sm text-[#9da8b9]">Start typing a title to see suggestions...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Helpful Tip -->
+                    <div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex gap-3">
+                        <div class="text-primary shrink-0">
+                            <span class="material-symbols-outlined text-[20px]">lightbulb</span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-white font-medium mb-1">Writing good titles</p>
+                            <p class="text-xs text-[#9da8b9] leading-relaxed">
+                                Include the component name and a short summary of the unexpected behavior.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Mobile Bottom Navigation -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-[#101822] border-t border-[#282f39] flex items-center justify-around px-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]">
+        <a href="dashboard.html"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-[24px]">dashboard</span>
+            <span class="text-[10px] font-medium">Dashboard</span>
+        </a>
+        <a href="projects.html"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-[24px]">folder</span>
+            <span class="text-[10px] font-medium">Projects</span>
+        </a>
+        <a href="create-issue.html" class="flex flex-col items-center gap-1 text-primary">
+            <div
+                class="size-10 bg-primary rounded-full flex items-center justify-center -mt-6 border-4 border-[#101822] text-white shadow-lg">
+                <span class="material-symbols-outlined text-[24px]">add</span>
+            </div>
+            <span class="text-[10px] font-medium">New</span>
+        </a>
+    </nav>
+    <!-- Script Imports -->
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/smart-assist.js"></script>
+    <script type="module" src="js/create-issue.js"></script>
+</body>
+
+</html>

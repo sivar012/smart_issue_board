@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Projects - IssueTracker</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-dark": "#1c2430",
+                        "border-dark": "#282f39",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col font-display">
+    <!-- Top Navigation -->
+    <header
+        class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-background-dark px-6 py-3">
+        <div class="flex items-center gap-4 text-white">
+            <div class="flex items-center justify-center size-8 rounded-lg bg-primary/20 text-primary">
+                <span class="material-symbols-outlined text-[24px]">bug_report</span>
+            </div>
+            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">IssueTracker</h2>
+            <span id="user" class="text-xs text-gray-400 ml-2"></span>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-gray-400 text-sm font-medium leading-normal hover:text-white transition-colors"
+                href="dashboard.html">Dashboard</a>
+            <a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors"
+                href="projects.html">Projects</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button onclick="window.logout()"
+                class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign Out</button>
+            <button class="text-gray-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border border-border-dark"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD6H_k9guB5YFPduaOFsdkxuDm4njOQ6pr2Tseb9SoSB3f-waUbmzVPpbPsJtRUjvMY0xjxtGkybNPCvNrJh5CtOxioKxRTc4_TRz6F66OSgUb1UkndN3lRT18Oe3iPHIoxV30Hn46kIkiIPWqfITek-R1gUOrgB56bB30Vt1WW_ywhVUziGPEBUiXPaXZhwZ1yXb6Loj7ph6O2im4JgDVMF0NgNS9O1yIPS7mV05c0aT5ihnXRYXsf0LPnTT-fA1rSp8MuWLaGqcCj");'>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center py-6 px-4 md:px-8 lg:px-12 pb-24 md:pb-6">
+        <div class="w-full max-w-[1200px] flex flex-col gap-6">
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight text-white">Projects</h1>
+                    <p class="text-gray-400 mt-1 text-sm">Manage your projects and workspaces.</p>
+                </div>
+                <button onclick="document.getElementById('create-project-modal').showModal()"
+                    class="flex items-center justify-center gap-2 h-10 px-5 bg-primary hover:bg-blue-600 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-primary/20">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    <span>New Project</span>
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Projects will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-[#101822] border-t border-[#282f39] flex items-center justify-around px-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]">
+        <a href="dashboard.html"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-[24px]">dashboard</span>
+            <span class="text-[10px] font-medium">Dashboard</span>
+        </a>
+        <a href="projects.html" class="flex flex-col items-center gap-1 text-primary">
+            <span class="material-symbols-outlined text-[24px]">folder</span>
+            <span class="text-[10px] font-medium">Projects</span>
+        </a>
+        <a href="create-issue.html"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <div
+                class="size-10 bg-primary/20 rounded-full flex items-center justify-center -mt-6 border-4 border-[#101822] text-primary shadow-lg">
+                <span class="material-symbols-outlined text-[24px]">add</span>
+            </div>
+            <span class="text-[10px] font-medium">New</span>
+        </a>
+    </nav>
+
+    <!-- Create Project Modal -->
+    <dialog id="create-project-modal" class="bg-transparent backdrop:bg-black/50 p-0 w-full max-w-md">
+        <form method="dialog"
+            class="bg-background-dark border border-border-dark rounded-xl shadow-2xl overflow-hidden p-6 flex flex-col gap-4">
+            <h3 class="text-xl font-bold text-white">Create New Project</h3>
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-medium text-gray-300">Project Name</label>
+                <input id="project-name" type="text" placeholder="e.g. Website Redesign"
+                    class="w-full h-10 rounded-lg border border-border-dark bg-surface-dark text-white px-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+                    required>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-medium text-gray-300">Description</label>
+                <textarea id="project-desc" rows="3" placeholder="Brief description..."
+                    class="w-full rounded-lg border border-border-dark bg-surface-dark text-white p-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"></textarea>
+            </div>
+            <div class="flex justify-end gap-3 mt-2">
+                <button value="cancel"
+                    class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Cancel</button>
+                <button type="button" onclick="window.createProject()"
+                    class="px-4 py-2 text-sm font-bold bg-primary hover:bg-blue-600 text-white rounded-lg transition-colors">Create</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/projects.js"></script>
+</body>
+
+</html>

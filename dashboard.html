@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Issue Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS with Plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-dark": "#1c2430", // Slightly lighter than background-dark for cards/rows
+                        "border-dark": "#282f39",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #101822;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #282f39;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4554;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col font-display">
+    <!-- Main Wrapper -->
+    <div class="relative flex flex-col w-full h-full min-h-screen overflow-x-hidden">
+        <!-- Top Navigation -->
+        <header
+            class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-background-dark px-6 py-3">
+            <div class="flex items-center gap-4 text-white">
+                <div class="flex items-center justify-center size-8 rounded-lg bg-primary/20 text-primary">
+                    <span class="material-symbols-outlined text-[24px]">bug_report</span>
+                </div>
+                <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">IssueTracker</h2>
+                <span id="user" class="text-xs text-gray-400 ml-2"></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors"
+                    href="dashboard.html">Dashboard</a>
+                <a class="text-gray-400 text-sm font-medium leading-normal hover:text-white transition-colors"
+                    href="projects.html">Projects</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button onclick="window.logout()"
+                    class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign Out</button>
+                <button class="text-gray-400 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border border-border-dark"
+                    data-alt="User profile avatar showing a smiling person"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD6H_k9guB5YFPduaOFsdkxuDm4njOQ6pr2Tseb9SoSB3f-waUbmzVPpbPsJtRUjvMY0xjxtGkybNPCvNrJh5CtOxioKxRTc4_TRz6F66OSgUb1UkndN3lRT18Oe3iPHIoxV30Hn46kIkiIPWqfITek-R1gUOrgB56bB30Vt1WW_ywhVUziGPEBUiXPaXZhwZ1yXb6Loj7ph6O2im4JgDVMF0NgNS9O1yIPS7mV05c0aT5ihnXRYXsf0LPnTT-fA1rSp8MuWLaGqcCj");'>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content Container -->
+        <main class="flex-1 flex flex-col items-center py-6 px-4 md:px-8 lg:px-12 pb-24 md:pb-6">
+            <div class="w-full max-w-[1200px] flex flex-col gap-6">
+                <!-- Breadcrumbs -->
+                <nav class="flex flex-wrap gap-2 items-center text-sm">
+                    <a class="text-gray-400 hover:text-white transition-colors" href="#">Home</a>
+                    <span class="text-gray-600">/</span>
+                    <a class="text-gray-400 hover:text-white transition-colors" href="#">Projects</a>
+                    <span class="text-gray-600">/</span>
+                    <span class="text-white font-medium">Issues</span>
+                </nav>
+                <!-- Page Header & Stats -->
+                <div class="flex flex-col gap-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight text-white">
+                                Dashboard Overview</h1>
+                            <p class="text-gray-400 mt-1 text-sm leading-relaxed">Track progress, manage issues, and hit
+                                your deadlines.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="window.renderIssues()"
+                                class="hidden md:flex items-center justify-center size-10 rounded-lg hover:bg-[#282f39] text-[#9da8b9] transition-colors border border-transparent hover:border-[#282f39]">
+                                <span class="material-symbols-outlined text-[20px]">refresh</span>
+                            </button>
+                            <button onclick="location.href='create-issue.html'"
+                                class="flex items-center justify-center gap-2 h-10 px-5 bg-primary hover:bg-blue-600 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-primary/20">
+                                <span class="material-symbols-outlined text-[20px]">add</span>
+                                <span>New Issue</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Premium Stats Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Stat Card 1 -->
+                        <div class="relative overflow-hidden rounded-xl border border-border-dark bg-[#1c2027] p-5">
+                            <dt class="truncate text-sm font-medium text-gray-400">Total Issues</dt>
+                            <dd class="mt-2 flex items-baseline gap-2">
+                                <span id="stat-total" class="text-2xl font-bold text-white tracking-tight">--</span>
+                                <span class="text-sm text-gray-500 font-medium">overall</span>
+                            </dd>
+                            <div class="absolute right-4 top-4 text-primary/20">
+                                <span class="material-symbols-outlined text-[32px]">list_alt</span>
+                            </div>
+                        </div>
+                        <!-- Stat Card 2 -->
+                        <div class="relative overflow-hidden rounded-xl border border-border-dark bg-[#1c2027] p-5">
+                            <dt class="truncate text-sm font-medium text-gray-400">Open Issues</dt>
+                            <dd class="mt-2 flex items-baseline gap-2">
+                                <span id="stat-open" class="text-2xl font-bold text-green-500 tracking-tight">--</span>
+                                <span class="text-sm text-gray-500 font-medium">active</span>
+                            </dd>
+                            <div class="absolute right-4 top-4 text-green-500/20">
+                                <span class="material-symbols-outlined text-[32px]">pending_actions</span>
+                            </div>
+                        </div>
+                        <!-- Stat Card 3 -->
+                        <div class="relative overflow-hidden rounded-xl border border-border-dark bg-[#1c2027] p-5">
+                            <dt class="truncate text-sm font-medium text-gray-400">High Priority</dt>
+                            <dd class="mt-2 flex items-baseline gap-2">
+                                <span id="stat-high" class="text-2xl font-bold text-red-500 tracking-tight">--</span>
+                                <span class="text-sm text-gray-500 font-medium">critical</span>
+                            </dd>
+                            <div class="absolute right-4 top-4 text-red-500/20">
+                                <span class="material-symbols-outlined text-[32px]">priority_high</span>
+                            </div>
+                        </div>
+                        <!-- Stat Card 4 -->
+                        <div class="relative overflow-hidden rounded-xl border border-border-dark bg-[#1c2027] p-5">
+                            <dt class="truncate text-sm font-medium text-gray-400">Assigned to Me</dt>
+                            <dd class="mt-2 flex items-baseline gap-2">
+                                <span id="stat-mine" class="text-2xl font-bold text-purple-400 tracking-tight">--</span>
+                                <span class="text-sm text-gray-500 font-medium">tasks</span>
+                            </dd>
+                            <div class="absolute right-4 top-4 text-purple-400/20">
+                                <span class="material-symbols-outlined text-[32px]">person</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Filters & Toolbar -->
+                <div class="flex flex-wrap items-center justify-between gap-4 p-1">
+                    <div class="flex flex-wrap gap-3">
+                        <!-- Status Filter -->
+                        <div class="relative group">
+                            <select id="filter-status" onchange="window.renderIssues()"
+                                class="flex h-9 items-center justify-between gap-x-2 rounded-lg border border-border-dark bg-surface-dark px-3 hover:bg-border-dark transition-colors appearance-none text-white text-sm font-medium pr-8 focus:outline-none focus:ring-1 focus:ring-primary">
+                                <option value="All">Status: All</option>
+                                <option value="Open">Open</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="In Review">In Review</option>
+                                <option value="Done">Done</option>
+                            </select>
+                            <span
+                                class="material-symbols-outlined text-gray-400 text-[18px] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+                        </div>
+                        <!-- Priority Filter -->
+                        <div class="relative group">
+                            <select id="filter-priority" onchange="window.renderIssues()"
+                                class="flex h-9 items-center justify-between gap-x-2 rounded-lg border border-border-dark bg-surface-dark px-3 hover:bg-border-dark transition-colors appearance-none text-white text-sm font-medium pr-8 focus:outline-none focus:ring-1 focus:ring-primary">
+                                <option value="All">Priority: All</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                            <span
+                                class="material-symbols-outlined text-gray-400 text-[18px] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+                        </div>
+                    </div>
+                    <!-- Sorting -->
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-500 text-xs font-medium uppercase tracking-wider">Sort by</span>
+                        <div class="relative">
+                            <select id="sort-order" onchange="window.renderIssues()"
+                                class="flex h-9 items-center justify-between gap-x-2 rounded-lg border border-border-dark bg-surface-dark px-3 hover:bg-border-dark transition-colors appearance-none text-white text-sm font-medium pr-8 focus:outline-none focus:ring-1 focus:ring-primary">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                            </select>
+                            <span
+                                class="material-symbols-outlined text-gray-400 text-[18px] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">sort</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Issues Table -->
+                <div class="w-full @container">
+                    <div class="flex flex-col overflow-hidden rounded-xl border border-border-dark bg-surface-dark/50">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-[#1c2027] border-b border-border-dark">
+                                        <th
+                                            class="px-4 py-3 text-gray-400 text-xs font-semibold uppercase tracking-wider w-[100px]">
+                                            ID</th>
+                                        <th
+                                            class="px-4 py-3 text-gray-400 text-xs font-semibold uppercase tracking-wider min-w-[240px]">
+                                            Issue</th>
+                                        <th
+                                            class="px-4 py-3 text-gray-400 text-xs font-semibold uppercase tracking-wider w-[120px]">
+                                            Priority</th>
+                                        <th
+                                            class="px-4 py-3 text-gray-400 text-xs font-semibold uppercase tracking-wider w-[140px]">
+                                            Status</th>
+                                        <th
+                                            class="px-4 py-3 text-gray-400 text-xs font-semibold uppercase tracking-wider w-[120px]">
+                                            Assigned</th>
+                                        <th
+                                            class="px-4 py-3 text-gray-400 text-xs font-semibold uppercase tracking-wider w-[180px] text-right">
+                                            Created</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="issues" class="divide-y divide-border-dark text-sm">
+                                    <!-- Issues will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Pagination/Footer of table -->
+                        <div
+                            class="flex items-center justify-between border-t border-border-dark bg-[#1c2027] px-4 py-3 sm:px-6">
+                            <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-400" id="pagination-info">
+                                        <!-- Dynamic info will be loaded here -->
+                                    </p>
+                                </div>
+                                <div>
+                                    <nav id="pagination-controls" aria-label="Pagination"
+                                        class="isolate inline-flex -space-x-px rounded-md shadow-sm">
+                                        <!-- Dynamic buttons will be loaded here -->
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </main>
+    </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-[#101822] border-t border-[#282f39] flex items-center justify-around px-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]">
+        <a href="dashboard.html" class="flex flex-col items-center gap-1 text-primary">
+            <span class="material-symbols-outlined text-[24px]">dashboard</span>
+            <span class="text-[10px] font-medium">Dashboard</span>
+        </a>
+        <a href="projects.html"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-[24px]">folder</span>
+            <span class="text-[10px] font-medium">Projects</span>
+        </a>
+        <a href="create-issue.html"
+            class="flex flex-col items-center gap-1 text-[#9da8b9] hover:text-white transition-colors">
+            <div
+                class="size-10 bg-primary rounded-full flex items-center justify-center -mt-6 border-4 border-[#101822] text-white shadow-lg">
+                <span class="material-symbols-outlined text-[24px]">add</span>
+            </div>
+            <span class="text-[10px] font-medium">New</span>
+        </a>
+    </nav>
+    <!-- Script Imports -->
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+
+</html>

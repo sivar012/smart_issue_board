@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy - IssueTracker</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                    borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-[#111418] dark:text-white min-h-screen flex flex-col">
+    <!-- Header -->
+    <header
+        class="w-full px-6 py-4 flex items-center justify-between sm:px-10 bg-background-light dark:bg-background-dark">
+        <div class="flex items-center gap-3">
+            <div class="size-8 text-primary">
+                <!-- Logo SVG (same as other pages) -->
+                <svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+            <h1 class="text-xl font-bold tracking-tight text-[#111418] dark:text-white">IssueTracker</h1>
+        </div>
+        <a class="text-sm font-medium text-primary hover:text-primary/80 transition-colors" href="index.html">Back to
+            Login</a>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="max-w-2xl w-full p-8 bg-white dark:bg-[#1c242f] rounded-xl shadow">
+            <h2 class="text-3xl font-bold mb-4">Privacy Policy</h2>
+            <p class="text-[#637588] dark:text-[#9da8b9] mb-4">
+                This is a placeholder privacy policy for the IssueTracker application. Replace this content with your
+                actual privacy policy.
+            </p>
+            <section class="space-y-4">
+                <h3 class="text-2xl font-semibold">1. Information We Collect</h3>
+                <p>We collect the email address you provide when you sign up or request a password reset. No other
+                    personal data is stored.</p>
+                <h3 class="text-2xl font-semibold">2. How We Use Your Information</h3>
+                <p>Your email is used solely for authentication purposes and to send password‑reset links. We do not
+                    share it with third parties.</p>
+                <h3 class="text-2xl font-semibold">3. Data Security</h3>
+                <p>All data is stored securely using Firebase Authentication, which follows industry‑standard security
+                    practices.</p>
+                <h3 class="text-2xl font-semibold">4. Changes to This Policy</h3>
+                <p>We may update this policy from time to time. Changes will be posted on this page.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="text-center px-4 mt-6">
+        <p class="text-xs text-[#637588] dark:text-[#9da8b9]">
+            © 2025 IssueTracker. All rights reserved.
+        </p>
+    </footer>
+</body>
+
+</html>
