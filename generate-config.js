@@ -27,12 +27,12 @@ const configContent = `export const firebaseConfig = {
     appId: "${process.env.VITE_FIREBASE_APP_ID || process.env.FIREBASE_APP_ID || ''}"
 };`;
 
-// Only generate if env vars are present (prevents overwriting local config with empty strings in dev if script is run accidentally)
-// Generate if running on Vercel OR if we successfully loaded a local .env file
-// Note: Vercel defaults outputDirectory to 'public' if not specified, but we are using root.
-if (process.env.VERCEL || fs.existsSync(envPath)) {
+// Only generate if we actually have values (prevents overwriting valid local config with empty strings)
+const hasEnvVars = (process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY);
+
+if (hasEnvVars) {
     fs.writeFileSync(configPath, configContent);
     console.log("Generated js/config.js from environment variables.");
 } else {
-    console.log("No .env file found and not running in Vercel. Skipping config generation.");
+    console.log("No valid environment variables found. Skipping config generation and using existing file.");
 }
